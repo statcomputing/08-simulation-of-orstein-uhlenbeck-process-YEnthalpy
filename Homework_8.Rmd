@@ -1,0 +1,17 @@
+---
+title: "Homework 8"
+author: "Zehan Yang"
+date: "10/30/2020"
+header-includes:
+- \usepackage{configuration}
+output: 
+  pdf_document:
+    latex_engine: pdflatex
+---
+
+\section{Exercise 5.3.3}
+\subsection{Problem 1}
+
+\subsection{Problem 2}
+
+\subsection{Problem 3}
