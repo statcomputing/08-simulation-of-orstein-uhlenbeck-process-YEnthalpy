@@ -8,10 +8,191 @@ output:
   pdf_document:
     latex_engine: pdflatex
 ---
-
 \section{Exercise 5.3.3}
 \subsection{Problem 1}
+\begin{proof}
+\begin{equation*}
+\begin{aligned}
+\because 
+dr(t) &= \alpha (b - r(t))dt + \sigma dW(t)\\
+\therefore
+r(t)  &= e^{-\alpha(t-u)}r(u) + b\alpha \int_u^t
+        e^{-\alpha(t-s)} \td s + \sigma \int_u^t
+        e^{-\alpha(t-s)}\td W(s)\\
+      &= e^{-\alpha(t-u)}r(u) + b[1 - e^{\alpha(u-t)}] +
+        Z\sqrt{\sigma^2 \int_u^t e^{-2\alpha (t-s)}}\td s\\
+      &= e^{-\alpha(t-u)}r(u) + b[1 - e^{\alpha(u-t)}] +
+        Z\sqrt{\frac{1-e^{-2\alpha(t-u)}}{2\alpha}},
+\end{aligned}
+\end{equation*}
+where $0 < u < t$ and $Z$ is the random variable follows standard normal
+distribution.
+
+Suppose $t = t + \Delta$ and $u = t$, then we have
+\begin{equation}\label{eq1}
+r(t + \Delta) = e^{-\alpha\Delta}r(t) + b[1 - e^{\alpha\Delta}] +
+        Z\sqrt{\frac{1-e^{-2\alpha\Delta}}{2\alpha}}.
+\end{equation}
+\end{proof}
 
 \subsection{Problem 2}
+The code for generating a sample for the Ornstein-Uhlenbeck process
+is shown below.
+```{r}
+ou.ran <- function(alpha, sigma, b, r.init, time, delta){
+  r <- r.init
+  ou <- rep(NA, time)
+  for (i in 1 : (time / delta) ) {
+    temp <- exp(- alpha * delta)
+    r  <- temp * r + b * (1 - temp) + 
+      sigma * sqrt((1 - temp ^ 2)/(2 * alpha)) * rnorm(1)
+    ou[i] <- r
+  }
+  return(c(r.init, ou))
+}
+```
+First, I will initiate the parameters.
+```{r}
+r.init <- 1
+time <- 500
+delta <- 1 / 500
+alpha <- c(0.1, 1, 5)
+sigma <- c(0.1, 0.2, 0.5)
+b <- c(-5, 5)
+t <- seq(0, time, delta)
+```
+
+Draw plots for $alpha = 0.1$, $b = 5$ with different $\sigma$ values.
+```{r}
+rain <- c("blue", "grey", "yellow")
+plot(t, ou.ran(alpha[1], sigma[1], 5, 
+                    r.init, time, delta), type = "l",
+     col = rain[1], ylab = "r(t)", xlab = "Time")
+for (i in 2 : 3) {
+  lines(t, ou.ran(alpha[1], sigma[i], 5, 
+                    r.init, time, delta), type = "l",
+     col = rain[i])
+}
+```
+
+Draw plots for $alpha = 1$, $b = 5$ with different $\sigma$ values.
+```{r}
+rain <- c("blue", "grey", "yellow")
+plot(t, ou.ran(alpha[2], sigma[1], 5, 
+                    r.init, time, delta), type = "l",
+     col = rain[1], ylab = "r(t)", xlab = "Time")
+for (i in 2 : 3) {
+  lines(t, ou.ran(alpha[2], sigma[i], 5, 
+                    r.init, time, delta), type = "l",
+     col = rain[i])
+}
+```
+
+Draw plots for $alpha = 5$, $b = 5$ with different $\sigma$ values.
+```{r}
+rain <- c("blue", "grey", "yellow")
+plot(t, ou.ran(alpha[3], sigma[1], 5, 
+                    r.init, time, delta), type = "l",
+     col = rain[1], ylab = "r(t)", xlab = "Time")
+for (i in 2 : 3) {
+  lines(t, ou.ran(alpha[3], sigma[i], 5, 
+                    r.init, time, delta), type = "l",
+     col = rain[i])
+}
+```
+
+Draw plots for $alpha = 0.1$, $b = -5$ with different $\sigma$ values.
+```{r}
+rain <- c("blue", "grey", "yellow")
+plot(t, ou.ran(alpha[1], sigma[1], -5, 
+                    r.init, time, delta), type = "l",
+     col = rain[1], ylab = "r(t)", xlab = "Time")
+for (i in 2 : 3) {
+  lines(t, ou.ran(alpha[1], sigma[i], -5, 
+                    r.init, time, delta), type = "l",
+     col = rain[i])
+}
+```
+
+Draw plots for $alpha = 1$, $b = -5$ with different $\sigma$ values.
+```{r}
+rain <- c("blue", "grey", "yellow")
+plot(t, ou.ran(alpha[2], sigma[1], -5, 
+                    r.init, time, delta), type = "l",
+     col = rain[1], ylab = "r(t)", xlab = "Time")
+for (i in 2 : 3) {
+  lines(t, ou.ran(alpha[2], sigma[i], -5, 
+                    r.init, time, delta), type = "l",
+     col = rain[i])
+}
+```
+
+Draw plots for $alpha = 5$, $b = -5$ with different $\sigma$ values.
+```{r}
+rain <- c("blue", "grey", "yellow")
+plot(t, ou.ran(alpha[3], sigma[1], -5, 
+                    r.init, time, delta), type = "l",
+     col = rain[1], ylab = "r(t)", xlab = "Time")
+for (i in 2 : 3) {
+  lines(t, ou.ran(alpha[3], sigma[i], -5, 
+                    r.init, time, delta), type = "l",
+     col = rain[i])
+}
+```
+From those plots, we can find out that 
+\begin{enumerate}
+\item $r(t)$ will be much more stable with smaller $\sigma$.
+\item $r(t)$ will be much more stable with larger $\alpha$.
+\end{enumerate}
 
 \subsection{Problem 3}
+Suppose $\Delta = 1$ and $t = 0$, based on \eqref{eq1}, we have
+\begin{equation}
+r(1) = e^{-\alpha}r(0) + b(1 - e^{-\alpha}) +
+      \frac{\sigma}{\sqrt{2\alpha}}\sqrt{1 - e^{-2\alpha}}Z.
+\end{equation}
+Based on the fact that $Z\sim \Nor(0,1)$, we have $r(1)$ follows a 
+normal distribution $\Nor(\mu, \sigma_1^2)$ with
+\begin{equation*}
+\begin{aligned}
+\mu &= \Exp\left[r(1)\right] = 
+e^{-\alpha}r(0) + b(1 - e^{-\alpha})\\
+\sigma_1^2 &= \Var\left[h(1)\right] 
+= \frac{(1-e^{-2\alpha})\sigma^2}{2\alpha}.
+\end{aligned}
+\end{equation*}
+Then, we can write the function generating random data for $r(1)$ by
+using Euler-Maruyama method.
+```{r}
+em.ran <- function(n, delta, ...){
+  return(replicate(n, ou.ran(alpha, sigma, 
+                             b, 0, 1, delta))[(1 / delta + 1), ])
+}
+```
+I will choose $\alpha = \sigma = 0.1$, $b = 3$ and $r(0) = 0$ in my
+code for generating random data. The kernel density plots for choosing
+$\delta = \left\lbrace1,0.5,0.1,.01\right\rbrace$ and the true density
+plot are shown below.
+```{r}
+alpha <- 0.1; sigma <- 0.1; b <- 3; n <- 1000
+delta <- c(1, 0.5, 0.1, 0.01)
+dens <- matrix(NA, nrow = 4, ncol = n)
+for (i in 1 : 4) {
+  dens[i, ] <- em.ran(n, delta[i])
+}
+mu <- b * (1 - exp(-alpha)) 
+var <- sigma ^ 2 * (1 - exp(-2 * alpha)) / (2 * alpha)
+t.dens <- rnorm(1000, mu, sqrt(var))
+rain <- rainbow(5)
+plot(density(t.dens), main = "Density Plot", xlab = "r(1)",
+     ylab = "density", ylim = c(0, 4.5), col = rain[1])
+for (i in 1 : 4) {
+  lines(density(dens[i,]), col = rain[i + 1])
+}
+legend("topright", legend = c("True Density", "delta = 1", 
+                              "delta = 0.5", "delta = 0.1", 
+                              "delta = 0.01"), 
+       col = rain, lty = rep(1, 5))
+```
+
+
