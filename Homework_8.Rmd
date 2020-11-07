@@ -17,12 +17,12 @@ output:
 dr(t) &= \alpha (b - r(t))dt + \sigma dW(t)\\
 \therefore
 r(t)  &= e^{-\alpha(t-u)}r(u) + b\alpha \int_u^t
-        e^{-\alpha(t-s)} \td s + \sigma \int_u^t
-        e^{-\alpha(t-s)}\td W(s)\\
-      &= e^{-\alpha(t-u)}r(u) + b[1 - e^{\alpha(u-t)}] +
-        Z\sqrt{\sigma^2 \int_u^t e^{-2\alpha (t-s)}}\td s\\
-      &= e^{-\alpha(t-u)}r(u) + b[1 - e^{\alpha(u-t)}] +
-        Z\sqrt{\frac{1-e^{-2\alpha(t-u)}}{2\alpha}},
+e^{-\alpha(t-s)} \td s + \sigma \int_u^t
+e^{-\alpha(t-s)}\td W(s)\\
+&= e^{-\alpha(t-u)}r(u) + b[1 - e^{\alpha(u-t)}] +
+  Z\sqrt{\sigma^2 \int_u^t e^{-2\alpha (t-s)}}\td s\\
+&= e^{-\alpha(t-u)}r(u) + b[1 - e^{\alpha(u-t)}] +
+  Z\sqrt{\frac{1-e^{-2\alpha(t-u)}}{2\alpha}},
 \end{aligned}
 \end{equation*}
 where $0 < u < t$ and $Z$ is the random variable follows standard normal
@@ -31,7 +31,7 @@ distribution.
 Suppose $t = t + \Delta$ and $u = t$, then we have
 \begin{equation}\label{eq1}
 r(t + \Delta) = e^{-\alpha\Delta}r(t) + b[1 - e^{\alpha\Delta}] +
-        Z\sqrt{\frac{1-e^{-2\alpha\Delta}}{2\alpha}}.
+  Z\sqrt{\frac{1-e^{-2\alpha\Delta}}{2\alpha}}.
 \end{equation}
 \end{proof}
 
@@ -66,12 +66,12 @@ Draw plots for $alpha = 0.1$, $b = 5$ with different $\sigma$ values.
 ```{r}
 rain <- c("blue", "grey", "yellow")
 plot(t, ou.ran(alpha[1], sigma[1], 5, 
-                    r.init, time, delta), type = "l",
+               r.init, time, delta), type = "l",
      col = rain[1], ylab = "r(t)", xlab = "Time")
 for (i in 2 : 3) {
   lines(t, ou.ran(alpha[1], sigma[i], 5, 
-                    r.init, time, delta), type = "l",
-     col = rain[i])
+                  r.init, time, delta), type = "l",
+        col = rain[i])
 }
 ```
 
@@ -79,12 +79,12 @@ Draw plots for $alpha = 1$, $b = 5$ with different $\sigma$ values.
 ```{r}
 rain <- c("blue", "grey", "yellow")
 plot(t, ou.ran(alpha[2], sigma[1], 5, 
-                    r.init, time, delta), type = "l",
+               r.init, time, delta), type = "l",
      col = rain[1], ylab = "r(t)", xlab = "Time")
 for (i in 2 : 3) {
   lines(t, ou.ran(alpha[2], sigma[i], 5, 
-                    r.init, time, delta), type = "l",
-     col = rain[i])
+                  r.init, time, delta), type = "l",
+        col = rain[i])
 }
 ```
 
@@ -92,12 +92,12 @@ Draw plots for $alpha = 5$, $b = 5$ with different $\sigma$ values.
 ```{r}
 rain <- c("blue", "grey", "yellow")
 plot(t, ou.ran(alpha[3], sigma[1], 5, 
-                    r.init, time, delta), type = "l",
+               r.init, time, delta), type = "l",
      col = rain[1], ylab = "r(t)", xlab = "Time")
 for (i in 2 : 3) {
   lines(t, ou.ran(alpha[3], sigma[i], 5, 
-                    r.init, time, delta), type = "l",
-     col = rain[i])
+                  r.init, time, delta), type = "l",
+        col = rain[i])
 }
 ```
 
@@ -105,12 +105,12 @@ Draw plots for $alpha = 0.1$, $b = -5$ with different $\sigma$ values.
 ```{r}
 rain <- c("blue", "grey", "yellow")
 plot(t, ou.ran(alpha[1], sigma[1], -5, 
-                    r.init, time, delta), type = "l",
+               r.init, time, delta), type = "l",
      col = rain[1], ylab = "r(t)", xlab = "Time")
 for (i in 2 : 3) {
   lines(t, ou.ran(alpha[1], sigma[i], -5, 
-                    r.init, time, delta), type = "l",
-     col = rain[i])
+                  r.init, time, delta), type = "l",
+        col = rain[i])
 }
 ```
 
@@ -118,12 +118,12 @@ Draw plots for $alpha = 1$, $b = -5$ with different $\sigma$ values.
 ```{r}
 rain <- c("blue", "grey", "yellow")
 plot(t, ou.ran(alpha[2], sigma[1], -5, 
-                    r.init, time, delta), type = "l",
+               r.init, time, delta), type = "l",
      col = rain[1], ylab = "r(t)", xlab = "Time")
 for (i in 2 : 3) {
   lines(t, ou.ran(alpha[2], sigma[i], -5, 
-                    r.init, time, delta), type = "l",
-     col = rain[i])
+                  r.init, time, delta), type = "l",
+        col = rain[i])
 }
 ```
 
@@ -131,12 +131,12 @@ Draw plots for $alpha = 5$, $b = -5$ with different $\sigma$ values.
 ```{r}
 rain <- c("blue", "grey", "yellow")
 plot(t, ou.ran(alpha[3], sigma[1], -5, 
-                    r.init, time, delta), type = "l",
+               r.init, time, delta), type = "l",
      col = rain[1], ylab = "r(t)", xlab = "Time")
 for (i in 2 : 3) {
   lines(t, ou.ran(alpha[3], sigma[i], -5, 
-                    r.init, time, delta), type = "l",
-     col = rain[i])
+                  r.init, time, delta), type = "l",
+        col = rain[i])
 }
 ```
 From those plots, we can find out that 
@@ -149,14 +149,14 @@ From those plots, we can find out that
 Suppose $\Delta = 1$ and $t = 0$, based on \eqref{eq1}, we have
 \begin{equation}
 r(1) = e^{-\alpha}r(0) + b(1 - e^{-\alpha}) +
-      \frac{\sigma}{\sqrt{2\alpha}}\sqrt{1 - e^{-2\alpha}}Z.
+  \frac{\sigma}{\sqrt{2\alpha}}\sqrt{1 - e^{-2\alpha}}Z.
 \end{equation}
 Based on the fact that $Z\sim \Nor(0,1)$, we have $r(1)$ follows a 
 normal distribution $\Nor(\mu, \sigma_1^2)$ with
 \begin{equation*}
 \begin{aligned}
 \mu &= \Exp\left[r(1)\right] = 
-e^{-\alpha}r(0) + b(1 - e^{-\alpha})\\
+  e^{-\alpha}r(0) + b(1 - e^{-\alpha})\\
 \sigma_1^2 &= \Var\left[h(1)\right] 
 = \frac{(1-e^{-2\alpha})\sigma^2}{2\alpha}.
 \end{aligned}
@@ -194,5 +194,68 @@ legend("topright", legend = c("True Density", "delta = 1",
                               "delta = 0.01"), 
        col = rain, lty = rep(1, 5))
 ```
+
+\section{Exercise 5.3.4}
+\subsection{Problem 1}
+The distribution for $N(5)$ should be
+\begin{equation*}
+\begin{aligned}
+P\left\lbrace N(5) = k\right\rbrace 
+= P\left\lbrace N(0, 5]  = k\right\rbrace \\
+&= \frac{[\Lambda(0,5)] ^ n}{n!}\exp(-\Lambda(0,5)),
+\end{aligned}
+\end{equation*}
+where
+\begin{equation*}
+\begin{aligned}
+\Lambda(0,5) &= \int_0^5 \lambda(t)\text{d}t \\
+&= \int_0^5 \sqrt{t} + \exp(-t) \sin(2\pi t) \text{d}t \\
+&= 7.608.
+\end{aligned}
+\end{equation*}
+The R code for calculating the integration is shown below.
+```{r}
+inten <- function(t) {
+  sqrt(t) + exp(-t) * sin(2 * pi * t)
+}
+int.mea <- round(integrate(inten, 0, 5)$value, 3)
+cat("The intensity measure is ", int.mea, ".", sep = "")
+```
+Thus, we can conclude that
+\begin{equation*}
+\begin{aligned}
+P\left\lbrace N(5) = n \right\rbrace
+&= \frac{7.608 ^ n}{n!}\exp(-7.608),\\
+N(5) &\sim \text{Poission(7.608)}.
+\end{aligned}
+\end{equation*}
+
+\subsection{Problem 2}
+The function to simulate from this Poisson process is shown below.
+```{r}
+t <- seq(0, 5, 0.01)
+intmax <- max(inten(t))
+gen.poi <- function(control = list(intensity = inten, 
+                                   intmax = intmax, tmax = 5)) {
+  n <- rpois(1, control$intmax)
+  tt <- runif(n, 0, control$tmax)
+  u <- runif(n)
+  accept <- u < inten(tt) / control$intmax
+  sort(tt[accept])
+}
+```
+
+\subsection{Problem 3}
+Generate events 1000 times and then draw plots.
+```{r}
+ran.poi <- unlist(replicate(1000, gen.poi()))
+y <- inten(t) / int.mea
+plot(density(ran.poi, from = 0, to = 5), xlab = "t", ylab = "Density", 
+     main = "Density plots", col = "red", lwd = 2, lty = 3, ylim = c(0, 0.3))
+lines(y ~ t, col = "blue", lwd = 2, lty = 2)
+legend("topleft", c("Kernal", "True"), lty = c(3, 2), 
+       col = c("red", "blue"), lwd = c(2, 2))
+```
+
 
 
